@@ -169,19 +169,6 @@ impl App {
             .unwrap_or(false)
     }
 
-    pub fn queue_preview_labels(&self, max: usize) -> (Vec<String>, usize) {
-        let mut labels = Vec::new();
-        for item in self.queue.iter().take(max) {
-            let tag = match item.action {
-                QueueAction::Install => format!("[{}]", item.name),
-                QueueAction::Remove => format!("[-{}]", item.name),
-            };
-            labels.push(tag);
-        }
-        let remaining = self.queue.len().saturating_sub(labels.len());
-        (labels, remaining)
-    }
-
     pub fn selected_package(&self) -> Option<&PackageRecord> {
         let idx = *self.visible.get(self.selected)?;
         self.packages.get(idx)
