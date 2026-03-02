@@ -173,7 +173,7 @@ Existing historical tarballs:
 This round target:
 - Build and publish refreshed tarball containing responsive layout upgrade and new docs.
 
-Planned artifact in this round:
+Finalized artifact in this round:
 - `dist/arch-package-tui-0.2.1.tar.gz`
 
 ## 7) Git Remote and Branch State
@@ -186,7 +186,7 @@ Branch flow:
 
 ## 8) Commit Message History (Exact)
 
-Commit history captured before this round’s final commit:
+Commit history including this round:
 
 1. `f8fc6adcf144b0eeb93259dee40807324ea5308b`
 - Date: `2026-03-02 11:18:41 +0545`
@@ -203,8 +203,10 @@ Commit history captured before this round’s final commit:
 - Author: `Prabhat Aryal <404prabhat@gmail.com>`
 - Message: `Update development log to include latest commit-history entries`
 
-Planned commit message for this responsive/layout round:
-- `Add responsive undistorted layout, maintainer prompt, docs updates, and v0.2.1 tarball`
+4. `0048e598fd4458feb0e5537f827d5111e1224c96`
+- Date: `2026-03-02` (local commit time)
+- Author: `Prabhat Aryal <404prabhat@gmail.com>`
+- Message: `Add responsive undistorted layout, maintainer prompt, docs updates, and v0.2.1 tarball`
 
 ## 9) Direction-Change Summary
 
@@ -214,4 +216,3 @@ Planned commit message for this responsive/layout round:
 4. Blocking index load -> cache-first startup + async background sync.
 5. Static UI assumptions -> responsive breakpoint-driven layout scaling.
 6. Single interaction mode -> combined TUI + headless scriptable mode.
-
