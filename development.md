@@ -142,12 +142,22 @@ A full rewrite was started from the prototype toward the final direction.
 
 ## 6) Commit History (Exact Messages)
 
-Below is the exact commit history that existed when generating this document.
+Below is the exact/declared commit history tracked during development logging.
 
 1. `f8fc6adcf144b0eeb93259dee40807324ea5308b`
 - Date: `2026-03-02 11:18:41 +0545`
 - Author: `Prabhat Aryal <404prabhat@gmail.com>`
 - Message: `Rewrite into tri-pane Arch package TUI with async cache, fuzzy search, and headless mode`
+
+2. `42b80c0...`
+- Date: `2026-03-02` (local commit time)
+- Author: `Prabhat Aryal <404prabhat@gmail.com>`
+- Message: `Add chronological development log with pivots and commit history`
+
+3. `pending-at-edit-time`
+- Date: `2026-03-02` (local commit time)
+- Author: `Prabhat Aryal <404prabhat@gmail.com>`
+- Message: `Update development log to include latest commit-history entries`
 
 ## 7) Major Direction Changes Summary
 
@@ -156,4 +166,3 @@ Below is the exact commit history that existed when generating this document.
 3. Hardcoded manager chain presets -> backend abstraction + reorderable priority.
 4. Blocking index load behavior -> cache-first startup + background sync.
 5. Manual-only interactive workflow -> combined TUI + scriptable headless interface.
-
