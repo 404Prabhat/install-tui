@@ -60,6 +60,11 @@ Ensure `~/.local/bin` is in your `PATH`, then run:
 arch-package-tui
 ```
 
+## Repo helper scripts (outside tarball too)
+
+- `install.sh` builds release and installs to `~/.local/bin/arch-package-tui`
+- `run.sh` runs local release binary if available, otherwise falls back to `cargo run`
+
 ## Headless examples
 
 ```bash
