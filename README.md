@@ -59,24 +59,24 @@ cargo run
   - `1` queue view
   - `2` browse view
   - `i` start install
-  - `q` quit (or request abort during install)
+  - `q` quit (or request safe abort during install)
+  - `?` toggle persistent keybind help overlay
+  - `Tab` and `Shift+Tab` cycle focus in every view
   - Global shortcuts are disabled while typing in text fields
 
 - Queue view
-  - `Up/Down` move focus between input/priority/queue/actions
   - Manual input: type package list, `Enter` or `a` to add
   - Priority row: `Left/Right` cycle source priority presets
-  - `t` toggle dry-run
-  - Queue list: `d` remove selected, `x` clear all
+  - `t` toggle dry-run mode
+  - Queue list: `Up/Down` navigate, `d` remove selected, `x` clear all
   - `b` switch to browse view
 
 - Browse view
   - Search bar: type fuzzy query
-  - `Tab` switch between search and result list
   - Results: `Up/Down` navigate
   - `Enter` or `Space` add highlighted package to queue
   - `d` remove highlighted package from queue
-  - `/` focus search, `Esc` clear/back
+  - `/` or `Esc` always returns focus to search bar
 
 - Installing view
   - `q` or `c` requests safe abort
