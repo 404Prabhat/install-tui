@@ -22,6 +22,25 @@ A Rust-based, keyboard-first installer TUI for Arch Linux.
 
 This tool expects Arch Linux (`/etc/arch-release`) and is intended for Arch package ecosystems.
 
+## Install globally (recommended)
+
+From the project directory:
+
+```bash
+./install.sh
+```
+
+This builds and installs the binary to `~/.local/bin` and creates two runnable commands:
+
+- `install-tui`
+- `arch-package-tui`
+
+If you only want install without immediate launch:
+
+```bash
+./install.sh --no-run
+```
+
 ## Run from source
 
 ```bash
