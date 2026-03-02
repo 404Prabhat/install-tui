@@ -87,11 +87,14 @@ fn run_installer(
 
     preflight(&tx, &mut log_file)?;
 
-    if !request.dry_run {
-        run_status("sudo", &["-v"])?;
-        emit(&tx, &mut log_file, "sudo authentication cached");
-    } else {
+    if request.dry_run {
         emit(&tx, &mut log_file, "dry-run mode enabled");
+    } else {
+        emit(
+            &tx,
+            &mut log_file,
+            "using existing sudo session (validated by UI pre-check)",
+        );
     }
 
     let keepalive_flag = Arc::new(AtomicBool::new(false));

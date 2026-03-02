@@ -1,4 +1,5 @@
 use std::collections::{HashSet, VecDeque};
+use std::process::Command;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{Receiver, channel};
@@ -128,6 +129,14 @@ impl App {
     }
 
     fn handle_global_key(&mut self, key: KeyEvent) -> bool {
+        let is_text_entry = matches!(
+            (self.screen, self.queue_focus, self.browse_focus),
+            (Screen::Queue, QueueFocus::Input, _) | (Screen::Browse, _, BrowseFocus::Search)
+        );
+        if is_text_entry {
+            return false;
+        }
+
         match key.code {
             KeyCode::Char('q') => {
                 if self.screen == Screen::Installing {
@@ -351,6 +360,15 @@ impl App {
 
         if !self.index_ready {
             self.status_line = "Package index still loading. Try again in a moment.".to_string();
+            return;
+        }
+
+        if !self.dry_run && !sudo_session_cached() {
+            self.status_line =
+                "Sudo session not active. Run: sudo -v  (then press i again)".to_string();
+            self.push_log(
+                "sudo auth required before install; run `sudo -v` in terminal".to_string(),
+            );
             return;
         }
 
@@ -609,5 +627,52 @@ fn prev_queue_focus(focus: QueueFocus) -> QueueFocus {
         QueueFocus::Priority => QueueFocus::Input,
         QueueFocus::Queue => QueueFocus::Priority,
         QueueFocus::Install => QueueFocus::Queue,
+    }
+}
+
+fn sudo_session_cached() -> bool {
+    Command::new("sudo")
+        .args(["-n", "true"])
+        .status()
+        .map(|s| s.success())
+        .unwrap_or(false)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
+
+    fn key(ch: char) -> KeyEvent {
+        KeyEvent::new(KeyCode::Char(ch), KeyModifiers::NONE)
+    }
+
+    #[test]
+    fn typing_i_in_input_does_not_trigger_global_install_shortcut() {
+        let mut app = App::new();
+        app.screen = Screen::Queue;
+        app.queue_focus = QueueFocus::Input;
+
+        app.on_key(key('i'));
+        assert_eq!(app.manual_input, "i");
+        assert!(app.install_rx.is_none());
+    }
+
+    #[test]
+    fn typing_q_in_search_does_not_quit() {
+        let mut app = App::new();
+        app.screen = Screen::Browse;
+        app.browse_focus = BrowseFocus::Search;
+
+        app.on_key(key('q'));
+        assert_eq!(app.search_query, "q");
+        assert!(!app.should_quit);
+    }
+
+    #[test]
+    fn parse_packages_handles_commas_spaces_and_filters_invalid_chars() {
+        let parsed = parse_packages(" fastfetch,btop   nvtop@1   !!bad!! ");
+        assert_eq!(parsed, vec!["fastfetch", "btop", "nvtop@1", "bad"]);
     }
 }

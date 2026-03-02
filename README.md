@@ -41,6 +41,12 @@ If you only want install without immediate launch:
 ./install.sh --no-run
 ```
 
+For real (non-dry-run) installs, pre-authenticate sudo once:
+
+```bash
+sudo -v && install-tui
+```
+
 ## Run from source
 
 ```bash
@@ -54,6 +60,7 @@ cargo run
   - `2` browse view
   - `i` start install
   - `q` quit (or request abort during install)
+  - Global shortcuts are disabled while typing in text fields
 
 - Queue view
   - `Up/Down` move focus between input/priority/queue/actions
